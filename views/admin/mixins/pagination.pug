@@ -1,0 +1,25 @@
+mixin pagination(objectPagination)
+  nav
+    ul(class="pagination")
+      if(objectPagination.currentPage > 1)
+        li(class="page-item")
+          button(
+            class="page-link"
+            button-pagination=objectPagination.currentPage-1
+          ) Trang trước
+      
+      - var startPage = Math.max(1, objectPagination.currentPage - 1)
+      - var endPage = Math.min(objectPagination.totalPage, objectPagination.currentPage + 1)
+      - for (var i = startPage; i <= endPage; i++)
+        li(class=`page-item ${objectPagination.currentPage == i ? "active" : ""}`)
+          button(
+            class="page-link"
+            button-pagination=i
+          ) #{i}
+      
+      if(objectPagination.currentPage < objectPagination.totalPage)
+        li(class="page-item")
+          button(
+            class="page-link"
+            button-pagination=objectPagination.currentPage+1
+          ) Kế tiếp
