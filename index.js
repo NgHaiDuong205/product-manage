@@ -34,6 +34,7 @@ app.set('views', './views');
 
 app.use(express.static('public'));
 app.use(methodOverride('_method'));
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
   extended: false

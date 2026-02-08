@@ -1,0 +1,61 @@
+extends ../../layouts/default.pug
+
+block main
+  .container.my-4
+    .product-detail-client
+      .product-detail-client__layout
+        //- Image Section
+        if (product.thumbnail)
+          .product-detail-client__image
+            img.product-detail-client__thumbnail(
+              src=product.thumbnail
+              alt=product.title
+            )
+
+        //- Info Section
+        .product-detail-client__info
+          //- Title
+          if (product.title)
+            h1.product-detail-client__title #{product.title}
+
+          //- Price
+          .product-detail-client__price-wrapper
+            if (product.priceNew)
+              span.product-detail-client__price-new #{product.priceNew}$
+            else if (product.price)
+              span.product-detail-client__price-new #{product.price}$
+            
+            if (product.discountPercentage && product.discountPercentage > 0)
+              span.product-detail-client__price-old #{product.price}$
+              span.product-detail-client__discount -#{product.discountPercentage}%
+
+          //- Meta Info
+          .product-detail-client__meta
+            if (product.stock)
+              .product-detail-client__meta-item
+                span.product-detail-client__meta-label Còn lại
+                if (product.stock > 10)
+                  span.product-detail-client__meta-value.product-detail-client__stock--available #{product.stock} sản phẩm
+                else
+                  span.product-detail-client__meta-value.product-detail-client__stock--low #{product.stock} sản phẩm
+
+            if (product.category)
+              .product-detail-client__meta-item
+                span.product-detail-client__meta-label Danh mục
+                span.product-detail-client__meta-value #{product.category}
+
+            if (product.rating)
+              .product-detail-client__meta-item
+                span.product-detail-client__meta-label Đánh giá
+                span.product-detail-client__meta-value ⭐ #{product.rating}/5
+
+          //- Action Buttons
+          .product-detail-client__actions
+            a.product-detail-client__btn.product-detail-client__btn--back(href="/products") ← Quay lại
+            a.product-detail-client__btn.product-detail-client__btn--buy(href="#") Mua ngay
+
+      //- Description
+      if (product.description)
+        .product-detail-client__description
+          h3.product-detail-client__description-title Mô tả sản phẩm
+          p.product-detail-client__description-text #{product.description}

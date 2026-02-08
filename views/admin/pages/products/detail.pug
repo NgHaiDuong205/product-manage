@@ -1,0 +1,65 @@
+extends ../../layouts/default.pug
+
+block main
+  .product-detail
+    //- Header
+    if (product.title)
+      .product-detail__header
+        h1.product-detail__title #{product.title}
+
+    //- Content: Image + Info
+    .product-detail__content
+      //- Image Section
+      if (product.thumbnail)
+        .product-detail__image-section
+          img.product-detail__thumbnail(
+            src=product.thumbnail
+            alt=product.title
+          )
+
+      //- Info Section
+      .product-detail__info
+        //- Price
+        if (product.price)
+          .product-detail__row
+            span.product-detail__label Giá
+            span.product-detail__value.product-detail__price #{product.price}$
+
+        //- Discount
+        if (product.discountPercentage)
+          .product-detail__row
+            span.product-detail__label Giảm giá
+            span.product-detail__discount -#{product.discountPercentage}%
+
+        //- Stock
+        if (product.stock)
+          .product-detail__row
+            span.product-detail__label Còn lại
+            span.product-detail__value.product-detail__stock #{product.stock} sản phẩm
+
+        //- Position
+        if (product.position)
+          .product-detail__row
+            span.product-detail__label Vị trí
+            span.product-detail__value #{product.position}
+
+        //- Status
+        if (product.status)
+          .product-detail__row
+            span.product-detail__label Trạng thái
+            if (product.status === "active")
+              span.product-detail__status.product-detail__status--active Hoạt động
+            else
+              span.product-detail__status.product-detail__status--inactive Dừng hoạt động
+
+    //- Description
+    if (product.description)
+      .product-detail__description
+        h3.product-detail__description-title Mô tả sản phẩm
+        p.product-detail__description-text #{product.description}
+
+    //- Action Buttons
+    .product-detail__actions
+      a.product-detail__back-btn(href="/admin/products")
+        | ← Quay lại danh sách
+      a.product-detail__edit-btn(href=`/admin/products/edit/${product.id}`) Sửa sản phẩm
