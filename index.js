@@ -29,10 +29,10 @@ app.use(flash());
 // end flash
 
 app.set('view engine', 'pug');
-app.set('views', './views');
+app.set('views', `${__dirname}/views`);
 
 
-app.use(express.static('public'));
+app.use(express.static(`${__dirname}/public`));
 app.use(methodOverride('_method'));
 
 // parse application/x-www-form-urlencoded
