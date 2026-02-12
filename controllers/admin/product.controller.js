@@ -151,11 +151,11 @@ module.exports.createPost = async (req, res) => {
     const countProduct = await Product.countDocuments();
     req.body.position = countProduct + 1;
   }
-  
-  if(req.file) {
+
+  if (req.file) {
     req.body.thumbnail = `/uploads/${req.file.filename}`;
   }
-  
+
   const record = new Product(req.body);
   await record.save();
 
@@ -174,7 +174,8 @@ module.exports.edit = async (req, res) => {
 
   res.render("admin/pages/products/edit", {
     pageTitle: "Chỉnh sửa sản phẩm",
-    product: product
+    product: product,
+    prefixAdmin: systemConfig.prefixAdmin
   });
 }
 
@@ -187,7 +188,7 @@ module.exports.editPatch = async (req, res) => {
   req.body.stock = parseInt(req.body.stock);
   req.body.position = parseInt(req.body.position);
 
-  if(req.file) {
+  if (req.file) {
     req.body.thumbnail = `/uploads/${req.file.filename}`;
   }
 
@@ -201,14 +202,14 @@ module.exports.editPatch = async (req, res) => {
 }
 
 // [GET] /admin/products/detail/:id
-module.exports.detail = async(req,res) =>{
+module.exports.detail = async (req, res) => {
   const id = req.params.id;
   const product = await Product.findOne({
-    _id : id,
-    deleted:false
+    _id: id,
+    deleted: false
   });
-  res.render("admin/pages/products/detail",{
-    pageTitle : `Sản Phẩm ${product.title}`,
+  res.render("admin/pages/products/detail", {
+    pageTitle: `Sản Phẩm ${product.title}`,
     product: product
   });
 }
